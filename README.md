@@ -2,5 +2,5 @@
 
 
 ## Necessary packages:
-      ``` npm install react-google-maps ```
+      npm install react-google-maps 
 
