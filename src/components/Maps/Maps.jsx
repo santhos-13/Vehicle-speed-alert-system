@@ -135,9 +135,10 @@
 
 import React from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import './Maps.css'
 
 const containerStyle = {
-  width: '400px',
+  width: '1100px',
   height: '400px'
 };
 
@@ -167,6 +168,7 @@ function MyComponent() {
   }, [])
 
   return isLoaded ? (
+    <div className='mapsdiv'>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
@@ -177,6 +179,9 @@ function MyComponent() {
         { /* Child components, such as markers, info windows, etc. */ }
         <></>
       </GoogleMap>
+    </div>
+    
+      
   ) : <></>
 }
 

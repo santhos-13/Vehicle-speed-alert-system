@@ -1,11 +1,14 @@
 import './App.css';
-import Maps from './Maps';
+import Maps from './components/Maps/Maps';
+import Rangeslider from './components/Rangeslider/Rangeslidercss';
+// import Rangeslidercss from './components/Rangeslider/Rangeslidercss';
 
 function App() {
   return (
     <div className="App">
-      hello
+      {/* hello */}
       <Maps/>
+      <Rangeslider/>
     </div>
   );
 }
