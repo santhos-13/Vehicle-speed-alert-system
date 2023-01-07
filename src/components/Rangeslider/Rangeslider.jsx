@@ -4,7 +4,7 @@ import './Rangeslider.css';
 
 
 function Rangeslider(){
-    const [value, setValue] = useState(50);
+    const [value, setValue] = useState(0);
     
       const handleChange = (e) => {
         setValue(e.target.value);

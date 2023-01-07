@@ -136,50 +136,76 @@
 import React from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import './Maps.css'
+import { DirectionsRenderer } from "@react-google-maps/api";
+import { Marker } from '@react-google-maps/api';
+
+// import 
 
 const containerStyle = {
   width: '1100px',
   height: '400px'
 };
 
+
 const center = {
   lat: -3.745,
   lng: -38.523
 };
-
-function MyComponent() {
+function MyComponent(directions) {
+  console.log(directions.directions)
+  // console.log(process.env.API_KEY)
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyB9X4dW_ProF_yw5tL3pp7gmjWLCpenZrY"
+    googleMapsApiKey: "AIzaSyB1heQTaBN9zC22DqdRlOmql4sLlh5WaL8"
   })
 
   const [map, setMap] = React.useState(null)
 
-  const onLoad = React.useCallback(function callback(map) {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
+  // const onLoad = React.useCallback(function callback(map) {
+  //   // This is just an example of getting and using the map instance!!! don't just blindly copy!
+  //   const bounds = new window.google.maps.LatLngBounds(center);
+  //   map.fitBounds(bounds);
 
-    setMap(map)
-  }, [])
+  //   // setMap(map)
+  // }, [])
 
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null)
-  }, [])
+  // const onUnmount = React.useCallback(function callback(map) {
+  //   setMap(null)
+  // }, [])
 
   return isLoaded ? (
     <div className='mapsdiv'>
+
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
         zoom={10}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-      >
-        { /* Child components, such as markers, info windows, etc. */ }
-        <></>
-      </GoogleMap>
-    </div>
+        // onLoad={onLoad}
+        // onUnmount={onUnmount}
+        >
+          <Marker position={center}  />
+        
+        { directions.directions &&
+        // <div>
+
+         <DirectionsRenderer directions={directions.directions} 
+          options={{
+            polylineOptions: {
+              zIndex: 100,
+              strokeWeight: 2.5,
+
+              strokeColor: "#00b0ff"
+            }
+          }}
+          />
+          // {/* </div> */}
+
+        }
+          { /* Child components, such as markers, info windows, etc. */ }
+          <></>
+          </GoogleMap>
+    {/* </div> */}
+          </div>
     
       
   ) : <></>
