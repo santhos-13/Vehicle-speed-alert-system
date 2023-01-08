@@ -151,27 +151,39 @@ const center = {
   lat: -3.745,
   lng: -38.523
 };
-function MyComponent(directions) {
-  console.log(directions.directions)
-  // console.log(process.env.API_KEY)
+
+function MyComponent(directions,latlongs) {
+  const response = directions.directions
+  console.log(latlongs)
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyB1heQTaBN9zC22DqdRlOmql4sLlh5WaL8"
+    googleMapsApiKey: "AIzaSyAkZEEYr7f9GW_63YQB6GuJA5rqnij7_JA"
   })
+  // const latlongs = [];
+    const [map, setMap] = React.useState(null)
+  const [Marker, setMarker] = React.useState(null)
 
-  const [map, setMap] = React.useState(null)
 
-  // const onLoad = React.useCallback(function callback(map) {
-  //   // This is just an example of getting and using the map instance!!! don't just blindly copy!
-  //   const bounds = new window.google.maps.LatLngBounds(center);
-  //   map.fitBounds(bounds);
+  
 
-  //   // setMap(map)
-  // }, [])
 
-  // const onUnmount = React.useCallback(function callback(map) {
-  //   setMap(null)
-  // }, [])
+  // if(response !== null){ 
+
+  //   const path1 = response["routes"][0]["legs"][0]["steps"]; 
+  // const totlength = path1.length;
+  // for(let i = 0; i < totlength; i++){
+  //     const templength = path1[i]["lat_lngs"].length;
+  //     for(let j = 0; j < templength; j++){
+  //         latlongs.push(path1[i]["lat_lngs"][j]["lat"]());
+  //         latlongs.push(path1[i]["lat_lngs"][j]["lng"]());
+  //     }
+  // }
+  // console.log(latlongs);
+  // }
+  if(latlongs.length > 0){
+    setMarker({lat: latlongs[0], lng: latlongs[1]})
+  }
+
 
   return isLoaded ? (
     <div className='mapsdiv'>
@@ -183,7 +195,7 @@ function MyComponent(directions) {
         // onLoad={onLoad}
         // onUnmount={onUnmount}
         >
-          <Marker position={center}  />
+          {/* {Marker && <Marker position={Marker}  />} */}
         
         { directions.directions &&
         // <div>
@@ -211,4 +223,23 @@ function MyComponent(directions) {
   ) : <></>
 }
 
-export default React.memo(MyComponent)
+
+
+
+
+
+export default MyComponent
+
+// MyComponent.defaultProps = {  
+//   directions: {
+//     directions: null
+//   },
+//   latlongs: []
+// }
+
+
+
+
+
+
+
