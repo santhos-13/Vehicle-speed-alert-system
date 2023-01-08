@@ -4,7 +4,7 @@
 ## Install Necessary Packages:
       npm install
       npm install react-google-maps 
-   ###If thrown error while installing:
+   ### If thrown error while installing:
       npm install --legacy-peer-deps
       npm install react-google-maps --legacy-peer-deps 
 ## Run:
