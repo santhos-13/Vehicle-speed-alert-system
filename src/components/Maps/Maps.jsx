@@ -138,7 +138,7 @@ import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import './Maps.css'
 import { DirectionsRenderer } from "@react-google-maps/api";
 import { Marker } from '@react-google-maps/api';
-
+import { Button, ButtonGroup } from '@chakra-ui/react'
 // import 
 
 const containerStyle = {
@@ -187,7 +187,6 @@ function MyComponent(directions,latlongs) {
 
   return isLoaded ? (
     <div className='mapsdiv'>
-
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}

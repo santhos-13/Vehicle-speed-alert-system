@@ -27,4 +27,5 @@ function Rangeslider(){
     )
 }
 
-export default Rangeslider
+
+export default Rangeslider;

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Maps from "../Maps/Maps";
-
+import { Box, Button, FormControl, FormLabel, Input, useColorMode } from "@chakra-ui/react";
 import { DirectionsRenderer } from "react-google-maps";
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 
@@ -158,27 +158,22 @@ return latlongs;
 
 
 
-
-
-
-
-
     return (
      
         <div class="input-group mb-3 w-100 ml-2 d-flex flex-column justify-content-center align-items-center">
             <div class="w-25 d-flex flex-row justify-content-center align-items-center mt-1">
 
   <div class="input-group-prepend">
-    <span class="input-group-text" id="basic-addon1">Origin</span>
+    <span class="input-group-text" id="basic-addon1" >Origin</span>
   </div>
-  <input type="text" id="input1" class="form-control" placeholder="start point" aria-label="Username" aria-describedby="basic-addon1" ></input>
+  <input type="text" class="form-control" placeholder="start point" aria-label="Username" aria-describedby="basic-addon1" ></input>
             </div>
             <div class="w-25 d-flex flex-row justify-content-center align-items-center mt-2">
 
   <div class="input-group-prepend">
     <span class="input-group-text" id="basic-addon1">Destination</span>
   </div>
-  <input type="text" id="input2" class="form-control" placeholder="end point" aria-label="Username" aria-describedby="basic-addon1" ></input>
+  <input type="text" class="form-control" placeholder="end point" aria-label="Username" aria-describedby="basic-addon1" ></input>
             </div>
             {/* <div class="w-25 h-20 d-flex flex-row justify-content-center align-items-center mt-1 " >
 
@@ -191,7 +186,18 @@ return latlongs;
 </select>   
             </div> */}
             <button type="button" class="btn btn-light mt-2" onClick={handleSubmit}>Start</button>
-
+            <Box>
+            <form>
+              <FormControl>
+                <FormLabel>Start</FormLabel>
+                <Input type="text" id = "input1" placeholder="start point" />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Destination</FormLabel>
+                <Input type="text" id = "input1" placeholder="end point" />
+              </FormControl>
+            </form>
+          </Box>
     <Maps directions={directions}  latlongs={latlongs}/>
     {/* <DirectionsRenderer directions={this.state.directions}/> */}
 </div>
