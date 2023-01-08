@@ -28,17 +28,19 @@ const Inputgroup = () => {
     var directionsRenderer = new window.google.maps.DirectionsRenderer();
 
      var input1autocomplete = new window.google.maps.places.Autocomplete(
-        document.getElementById("input1")
-    );
+         document.getElementById("input1")
+         );
     var input2autocomplete = new window.google.maps.places.Autocomplete(
         document.getElementById("input2")
     );
     // var DirectionResult = new window.google.maps.DirectionsResult();
-
-
+    
+    
     const [origin, setOrigin] = React.useState("");
     const [destination, setDestination] = React.useState("");
     const [directions, setDirections] = React.useState(null);   
+    const [finallatlongs, setFinalLatlongs] = React.useState([]);
+    // const [latlongs, setLatlongs] = React.useState(null);
 
     // const handlechange = (e,value) => {
     //     console.log(value)
@@ -64,26 +66,62 @@ const Inputgroup = () => {
         scrollToBottom();
         const input1 = document.getElementById("input1").value
         const input2 = document.getElementById("input2").value
-        console.log(input1)
-        console.log(origin)
+        // console.log(input1)
+        // console.log(origin)
         setOrigin(input1)
         setDestination(input2)
         e.preventDefault();
-        console.log("origin: " + origin);
-        console.log("destination: " + destination);
-        calculateAndDisplayRoute(directionsService, directionsRenderer);
+        // console.log("origin: " + origin);
+        // console.log("destination: " + destination);
+        calculateAndDisplayRoute(directionsService, directionsRenderer)
+        console.log(finallatlongs);
         function calculateAndDisplayRoute(directionsService, directionsRenderer){
+//             fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/directions/json?origin=${input1}&destination=${input2}&key=AIzaSyAkZEEYr7f9GW_63YQB6GuJA5rqnij7_JA`, {
+//                 method: 'GET',
+//                 headers: {
+                    
+// "Access-Control-Allow-Headers" : "Origin, Content-Type, Accept",
+//                     "Access-Control-Allow-Origin": "*",
+//                     "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+//                     "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+//                     }
+//                     }
+//                     )
+            
+//             .then(response => response.json())
+            
+//             .then(data =>{
+//                 console.log(data);
+//                 const path1 = data["routes"][0]["legs"][0]["steps"]; 
+//                 const totlength = path1.length;
+//                 for(let i = 0; i < totlength; i++){
+//                     const templength = path1[i]["lat_lngs"].length;
+//                     for(let j = 0; j < templength; j++){
+//                         latlongs.push(path1[i]["lat_lngs"][j]["lat"]());
+//                         latlongs.push(path1[i]["lat_lngs"][j]["lng"]());
+//                     }
+//                 }
+//                 console.log(latlongs);
+//             })
+//             // .then(data => console.log(data.routes[0].legs[0].steps[0].lat_lngs[0].lat()))
+//             .catch(error => console.log(error));
+
 
             directionsService.route(
                 {
                     origin: input1,
                     destination: input2,
                     travelMode: window.google.maps.TravelMode.DRIVING,
+                    // header: {
+                    //     "Access-Control-Allow-Origin": "*",
+                    //     "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+                    //     "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+                    // }
                 },
                 (response, status) => {
                     if (status === "OK") {
-                        console.log(response);
-                        console.log(response.routes[0].legs[0].steps[0].lat_lngs[0].lat());
+                        // console.log(response);
+                        // console.log(response.routes[0].legs[0].steps[0].lat_lngs[0].lat());
                         setDirections(response)
                         const path1 = response["routes"][0]["legs"][0]["steps"]; 
 const totlength = path1.length;
@@ -95,8 +133,11 @@ for(let i = 0; i < totlength; i++){
     }
 }
 console.log(latlongs);
-console.log(typeof(latlongs[0]));
-console.log(latlongs[0]);
+// console.log(typeof(latlongs[0]));
+// console.log(latlongs[0]);
+setFinalLatlongs(...latlongs);
+console.log(finallatlongs);
+return latlongs;
                         // directionsRenderer.setDirections({direction:response});
                         // this.setState({ directions: response });
                     } else {
@@ -151,7 +192,7 @@ console.log(latlongs[0]);
             </div> */}
             <button type="button" class="btn btn-light mt-2" onClick={handleSubmit}>Start</button>
 
-    <Maps directions={directions  }/>
+    <Maps directions={directions}  latlongs={latlongs}/>
     {/* <DirectionsRenderer directions={this.state.directions}/> */}
 </div>
 
