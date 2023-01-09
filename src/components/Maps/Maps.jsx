@@ -137,8 +137,15 @@ import React from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import './Maps.css'
 import { DirectionsRenderer } from "@react-google-maps/api";
-import { Marker } from '@react-google-maps/api';
+import { Marker } from "@react-google-maps/api";
+// import { Marker } from '@react-google-maps/api';
+import {  PropTypes } from 'prop-types';
+import { useEffect } from 'react';
+// import {  Marker } from 'google-maps-React';
 
+// import { Marker } from 'react-google-maps';
+// import { Marker } from 'react-google-maps';
+// import { Marker } from '@react-google-maps/api';
 // import 
 
 const containerStyle = {
@@ -152,38 +159,68 @@ const center = {
   lng: -38.523
 };
 
-function MyComponent(directions,latlongs) {
-  const response = directions.directions
-  console.log(latlongs)
+function MyComponent(directions) {
+
+  const [response,setResponse] = React.useState(null)
+  useEffect(()=>{
+    console.log("entered1")
+
+    setResponse(directions.directions)
+    // console.log
+  },[]
+  )
+
+
+
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: "AIzaSyAkZEEYr7f9GW_63YQB6GuJA5rqnij7_JA"
   })
-  // const latlongs = [];
+  const latlongs = [];
     const [map, setMap] = React.useState(null)
-  const [Marker, setMarker] = React.useState(null)
+  const [marker, setMarker] = React.useState({ lat: null, lng: null })
 
+  const newmarker = (latlongs) => {
+    console.log(latlongs)
+    if (latlongs.length > 0) {
+        console.log(latlongs[0])
+        console.log(latlongs[ 1])
+      }
+    }
+    
+    
+    useEffect(() => {
+      console.log("entered")
+      if (response !== null) {
+        const path1 = response["routes"][0]["legs"][0]["steps"];
+        const totlength = path1.length;
+        for (let i = 0; i < totlength; i++) {
+          const templength = path1[i]["lat_lngs"].length;
+          for (let j = 0; j < templength; j++) {
+            latlongs.push(path1[i]["lat_lngs"][j]["lat"]());
+            latlongs.push(path1[i]["lat_lngs"][j]["lng"]());
+          }
+        }
+        let updatedvalue = {}
+        updatedvalue = { lat:latlongs[0],lng:latlongs[1]}
+        setMarker(marker => ({
+          ...marker,
+          ...updatedvalue
+        }));       
+         console.log(marker)
+      console.log(latlongs);
+      newmarker(latlongs);
+    }
+  }, [response])
+
+  
 
   
 
 
-  // if(response !== null){ 
 
-  //   const path1 = response["routes"][0]["legs"][0]["steps"]; 
-  // const totlength = path1.length;
-  // for(let i = 0; i < totlength; i++){
-  //     const templength = path1[i]["lat_lngs"].length;
-  //     for(let j = 0; j < templength; j++){
-  //         latlongs.push(path1[i]["lat_lngs"][j]["lat"]());
-  //         latlongs.push(path1[i]["lat_lngs"][j]["lng"]());
-  //     }
-  // }
-  // console.log(latlongs);
-  // }
-  if(latlongs.length > 0){
-    setMarker({lat: latlongs[0], lng: latlongs[1]})
-  }
 
+  
 
   return isLoaded ? (
     <div className='mapsdiv'>
@@ -192,13 +229,21 @@ function MyComponent(directions,latlongs) {
         mapContainerStyle={containerStyle}
         center={center}
         zoom={10}
-        // onLoad={onLoad}
-        // onUnmount={onUnmount}
-        >
-          {/* {Marker && <Marker position={Marker}  />} */}
+        onLoad={map => {
+          const bounds = new window.google.maps.LatLngBounds();
+          map.fitBounds(bounds);
+          setMap(map)
+        }}
+        onUnmount={map => {
+          setMap(null)
+        }}
+
+
+      
+      >
+        <Marker position={marker}/>
         
         { directions.directions &&
-        // <div>
 
          <DirectionsRenderer directions={directions.directions} 
           options={{
@@ -228,16 +273,13 @@ function MyComponent(directions,latlongs) {
 
 
 
+
 export default MyComponent
 
-// MyComponent.defaultProps = {  
-//   directions: {
-//     directions: null
-//   },
-//   latlongs: []
-// }
-
-
+MyComponent.propTypes = {
+  directions: PropTypes.any,
+  latlongs: PropTypes.any
+}
 
 
 
