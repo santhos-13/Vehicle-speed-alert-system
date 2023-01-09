@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Maps from "../Maps/Maps";
-
+import { Box, Button, FormControl, FormLabel, Input, useColorMode } from "@chakra-ui/react";
 import { DirectionsRenderer } from "react-google-maps";
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 
@@ -23,7 +23,7 @@ const Inputgroup = () => {
     //     googleMapsApiKey: "AIzaSyB1heQTaBN9zC22DqdRlOmql4sLlh5WaL8"
     //   })
     // type DirectionsResult = new window.google.maps.DirectionsResult();
-    var LATLONGS =[]
+    const latlongs =[]
     var directionsService = new window.google.maps.DirectionsService();
     var directionsRenderer = new window.google.maps.DirectionsRenderer();
 
@@ -74,7 +74,7 @@ const Inputgroup = () => {
         // console.log("origin: " + origin);
         // console.log("destination: " + destination);
         calculateAndDisplayRoute(directionsService, directionsRenderer)
-        // console.log(finallatlongs);
+        console.log(finallatlongs);
         function calculateAndDisplayRoute(directionsService, directionsRenderer){
 //             fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/directions/json?origin=${input1}&destination=${input2}&key=AIzaSyAkZEEYr7f9GW_63YQB6GuJA5rqnij7_JA`, {
 //                 method: 'GET',
@@ -128,18 +128,16 @@ const totlength = path1.length;
 for(let i = 0; i < totlength; i++){
     const templength = path1[i]["lat_lngs"].length;
     for(let j = 0; j < templength; j++){
-        LATLONGS.push(path1[i]["lat_lngs"][j]["lat"]());
-        LATLONGS.push(path1[i]["lat_lngs"][j]["lng"]());
+        latlongs.push(path1[i]["lat_lngs"][j]["lat"]());
+        latlongs.push(path1[i]["lat_lngs"][j]["lng"]());
     }
 }
-console.log(LATLONGS);
-console.log(LATLONGS.length);
-// console.log(lat);
+console.log(latlongs);
 // console.log(typeof(latlongs[0]));
 // console.log(latlongs[0]);
-// setFinalLatlongs(...latlongs);
-// console.log(finallatlongs);
-// return latlongs;
+setFinalLatlongs(...latlongs);
+console.log(finallatlongs);
+return latlongs;
                         // directionsRenderer.setDirections({direction:response});
                         // this.setState({ directions: response });
                     } else {
@@ -160,32 +158,47 @@ console.log(LATLONGS.length);
 
 
 
-
-
-
-
-
     return (
      
         <div class="input-group mb-3 w-100 ml-2 d-flex flex-column justify-content-center align-items-center">
             <div class="w-25 d-flex flex-row justify-content-center align-items-center mt-1">
 
   <div class="input-group-prepend">
-    <span class="input-group-text" id="basic-addon1">Origin</span>
+    <span class="input-group-text" id="basic-addon1" >Origin</span>
   </div>
-  <input type="text" id="input1" class="form-control" placeholder="start point" aria-label="Username" aria-describedby="basic-addon1" ></input>
+  <input type="text" class="form-control" placeholder="start point" aria-label="Username" aria-describedby="basic-addon1" ></input>
             </div>
             <div class="w-25 d-flex flex-row justify-content-center align-items-center mt-2">
 
   <div class="input-group-prepend">
     <span class="input-group-text" id="basic-addon1">Destination</span>
   </div>
-  <input type="text" id="input2" class="form-control" placeholder="end point" aria-label="Username" aria-describedby="basic-addon1" ></input>
+  <input type="text" class="form-control" placeholder="end point" aria-label="Username" aria-describedby="basic-addon1" ></input>
             </div>
-            
+            {/* <div class="w-25 h-20 d-flex flex-row justify-content-center align-items-center mt-1 " >
+
+
+  <select class="form-select form-select-lg" type="text" aria-label=".form-select-lg example">
+  <option selected>Choose travel mode</option>
+  <option value="1"></option>
+  <option value="2">Two</option>
+  <option value="3">Three</option>
+</select>   
+            </div> */}
             <button type="button" class="btn btn-light mt-2" onClick={handleSubmit}>Start</button>
-            {/* {latlongs.length > 0 && <Maps directions={directions}  latlongs={latlongs}/>} */}
-    <Maps directions={directions} />
+            <Box>
+            <form>
+              <FormControl>
+                <FormLabel>Start</FormLabel>
+                <Input type="text" id = "input1" placeholder="start point" />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Destination</FormLabel>
+                <Input type="text" id = "input1" placeholder="end point" />
+              </FormControl>
+            </form>
+          </Box>
+    <Maps directions={directions}  latlongs={latlongs}/>
     {/* <DirectionsRenderer directions={this.state.directions}/> */}
 </div>
 
