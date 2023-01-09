@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom/client';
 const ToggleColorMode = () => {
   const {colorMode, toggleColorMode} = useColorMode();  
   return(
-    <Button onClick={() => toggleColorMode()} pos = 'absolute' top="0" right="0" m="1rem">
+    <Button onClick={() => toggleColorMode()} pos = 'absolute' top="0" right="0" m="1rem" colorScheme='teal' variant='ghost'>
       {colorMode === 'dark' ? <SunIcon/> : <MoonIcon/>}
     </Button>  
   );

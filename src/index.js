@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
 import theme from './theme';
+import ToggleBackgroundMode from './components/Background/Background';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
