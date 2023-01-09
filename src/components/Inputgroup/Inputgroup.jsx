@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Maps from "../Maps/Maps";
-import { Box, Button, FormControl, FormLabel, Input, useColorMode } from "@chakra-ui/react";
+import { Box, Button, FormControl, FormLabel, Input, InputGroup, InputLeftAddon, InputLeftElement, InputRightElement, useColorMode } from "@chakra-ui/react";
 import { DirectionsRenderer } from "react-google-maps";
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { ArrowForwardIcon, ArrowUpDownIcon, PhoneIcon } from "@chakra-ui/icons";
 
 // import { Select } from "@chakra-ui/react";
 
@@ -164,16 +165,29 @@ return latlongs;
             <div class="w-25 d-flex flex-row justify-content-center align-items-center mt-1">
 
   <div class="input-group-prepend">
-    <span class="input-group-text" id="basic-addon1" >Origin</span>
   </div>
-  <input type="text" class="form-control" placeholder="start point" aria-label="Username" aria-describedby="basic-addon1" ></input>
+  <InputGroup>
+  <InputRightElement
+      pointerEvents='none'
+      children={<ArrowUpDownIcon color='gray.300' />}
+    />
+  <InputLeftAddon children='Origin' color='teal'/>
+  <Input color='teal' type="text" class="form-control" id = "input1" placeholder="start point" aria-label="Username" _placeholder={{ opacity: 0.3, color: 'inherit' }} aria-describedby="basic-addon1" variant='outline' colorScheme='teal'></Input>
+  </InputGroup>          
             </div>
             <div class="w-25 d-flex flex-row justify-content-center align-items-center mt-2">
 
   <div class="input-group-prepend">
-    <span class="input-group-text" id="basic-addon1">Destination</span>
+    {/* <span class="input-group-text" id="basic-addon1">Destination</span> */}
   </div>
-  <input type="text" class="form-control" placeholder="end point" aria-label="Username" aria-describedby="basic-addon1" ></input>
+  <InputGroup >
+  <InputRightElement
+        pointerEvents='none'
+        children={<ArrowUpDownIcon color='gray.300' />}
+    />
+  <InputLeftAddon children='Destination' color='teal' />
+  <Input color='teal' type="text" class="form-control" id = "input2" placeholder="end point" _placeholder={{ opacity: 0.3, color: 'inherit' }} aria-label="Username" aria-describedby="basic-addon1" variant='outline' colorScheme='teal'></Input>
+  </InputGroup>
             </div>
             {/* <div class="w-25 h-20 d-flex flex-row justify-content-center align-items-center mt-1 " >
 
@@ -185,19 +199,7 @@ return latlongs;
   <option value="3">Three</option>
 </select>   
             </div> */}
-            <button type="button" class="btn btn-light mt-2" onClick={handleSubmit}>Start</button>
-            <Box>
-            <form>
-              <FormControl>
-                <FormLabel>Start</FormLabel>
-                <Input type="text" id = "input1" placeholder="start point" />
-              </FormControl>
-              <FormControl>
-                <FormLabel>Destination</FormLabel>
-                <Input type="text" id = "input1" placeholder="end point" />
-              </FormControl>
-            </form>
-          </Box>
+            <Button type="button" class="btn btn-light mt-2" onClick={handleSubmit} colorScheme='teal' variant='ghost' rightIcon={<ArrowForwardIcon/>} margin='2'>Start</Button>
     <Maps directions={directions}  latlongs={latlongs}/>
     {/* <DirectionsRenderer directions={this.state.directions}/> */}
 </div>
