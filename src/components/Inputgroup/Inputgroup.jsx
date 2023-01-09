@@ -171,8 +171,8 @@ return latlongs;
       pointerEvents='none'
       children={<ArrowUpDownIcon color='gray.300' />}
     />
-  <InputLeftAddon children='Origin' color='teal'/>
-  <Input color='teal' type="text" class="form-control" id = "input1" placeholder="start point" aria-label="Username" _placeholder={{ opacity: 0.3, color: 'inherit' }} aria-describedby="basic-addon1" variant='outline' colorScheme='teal'></Input>
+  <InputLeftAddon children='Origin' color='#51C6E1'/>
+  <Input color='#51C6E1' type="text" class="form-control" id = "input1" placeholder="start point" aria-label="Username" _placeholder={{ opacity: 0.3, color: 'inherit' }} aria-describedby="basic-addon1" variant='outline' colorScheme='teal'></Input>
   </InputGroup>          
             </div>
             <div class="w-25 d-flex flex-row justify-content-center align-items-center mt-2">
@@ -185,8 +185,8 @@ return latlongs;
         pointerEvents='none'
         children={<ArrowUpDownIcon color='gray.300' />}
     />
-  <InputLeftAddon children='Destination' color='teal' />
-  <Input color='teal' type="text" class="form-control" id = "input2" placeholder="end point" _placeholder={{ opacity: 0.3, color: 'inherit' }} aria-label="Username" aria-describedby="basic-addon1" variant='outline' colorScheme='teal'></Input>
+  <InputLeftAddon children='Destination' color='#51C6E1' />
+  <Input color='#51C6E1' type="text" class="form-control" id = "input2" placeholder="end point" _placeholder={{ opacity: 0.3, color: 'inherit' }} aria-label="Username" aria-describedby="basic-addon1" variant='outline' colorScheme='teal'></Input>
   </InputGroup>
             </div>
             {/* <div class="w-25 h-20 d-flex flex-row justify-content-center align-items-center mt-1 " >
@@ -199,7 +199,7 @@ return latlongs;
   <option value="3">Three</option>
 </select>   
             </div> */}
-            <Button type="button" class="btn btn-light mt-2" onClick={handleSubmit} colorScheme='teal' variant='ghost' rightIcon={<ArrowForwardIcon/>} margin='2'>Start</Button>
+            <Button type="button" class="btn btn-light mt-2" onClick={handleSubmit} colorScheme='#51C6E1' variant='ghost' rightIcon={<ArrowForwardIcon/>} margin='2'>Start</Button>
     <Maps directions={directions}  latlongs={latlongs}/>
     {/* <DirectionsRenderer directions={this.state.directions}/> */}
 </div>
